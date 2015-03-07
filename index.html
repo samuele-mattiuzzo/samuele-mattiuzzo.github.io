@@ -33,7 +33,6 @@
                     url = window.URL || window.webkitURL;
 
                 video.src = url ? url.createObjectURL(stream) : stream;
-                video.play();
 
                 button.onClick = function() {
                     canvas.getContext("2d").drawImage(video, 0, 0, 300, 300, 0, 0, 300, 300);
