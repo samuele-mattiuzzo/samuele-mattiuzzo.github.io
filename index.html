@@ -1,43 +1,71 @@
 <html>
 <head>
     <title>A camera experiment</title>
+    <meta author="samumatt@gmail.com">
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
 </head>
 
 <body>
+    <!-- camera controls -->
     <video id="video" width="300" height="300"></video>
     <button id="button" type="button" >Snaps!</button>
+    
+    <!-- canvas and output -->
     <canvas id="canvas" style="display:none;" width="300" height="300"></canvas>
+    <div class="output">
+        <img id="photo" alt="photo">
+    </div>
 </body>
 
 <script>
-    
+
     // Vendor prefixes ahead!
     navigator.getUserMedia = (navigator.getUserMedia || 
                               navigator.webkitGetUserMedia || 
                               navigator.mozGetUserMedia || 
                               navigator.msGetUserMedia);
-
-    
+  
     if (!navigator.getUserMedia){
         alert('Sorry, the browser you are using doesn\'t support getUserMedia');
     } else {
         alert('Navigator.getUserMedia present, please continue');
-        debugger;
         navigator.getUserMedia({"video": true}, 
             function(stream) {   
-                // we have a stream         
-                var video = document.getElementById('video'),
-                    button = document.getElementById('button'),
+                // we have a stream
+                // set some things up      
+                var width = 300,
+                    height = 300,
+                    video = document.getElementById('video'),
+                    btn = document.getElementById('button'),
                     canvas = document.getElementById('canvas'),
+                    photo = document.getElementById('photo'),
                     url = window.URL || window.webkitURL;
 
-                video.src = url ? url.createObjectURL(stream) : stream;
+                // canvas configuration
+                canvas.setAttribute('width', width);
+                canvas.setAttribute('height', height);
 
-                button.onClick = function() {
-                    canvas.getContext("2d").drawImage(video, 0, 0, 300, 300, 0, 0, 300, 300);
+                // video configuration
+                video.setAttribute('width', width);
+                video.setAttribute('height', height);
+
+                // one must love vendors.
+                if (navigator.mozGetUserMedia){
+                    video.setAttribute('mozSrcObject', stream);
+                } else {
+                    video.setAttribute('src', url ? url.createObjectURL(stream) : stream);
+                }
+                video.play();  // must play the video
+
+                // onclick listener for button
+                // snaps the picture
+                btn.addEventListener('click', function(evt) {
+                    canvas.getContext("2d").drawImage(video, 0, 0, width, height);
                     var img = canvas.toDataURL("image/png");
-                };
+                    photo.setAttribute('src', data);
+                    evt.preventDefault();
+
+                }, false);
             },
             function (error) { console.log('Nuh uh! ', error) }
         );
