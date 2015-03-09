@@ -18,7 +18,6 @@
         <label for="light">Light level</label><input type="range" id="light"/>
     </div>
 
-    <div class="output" style="display: hidden;"><img id="photo"></div>
 </body>
 
 <script>
@@ -42,7 +41,6 @@
                     video = document.getElementById('video'),
                     btn = document.getElementById('button'),
                     canvas = document.getElementById('canvas'),
-                    photo = document.getElementById('photo'),
                     url = window.URL || window.webkitURL;
 
                 // canvas configuration
@@ -66,7 +64,6 @@
                 btn.addEventListener('click', function(evt) {
                     canvas.getContext("2d").drawImage(video, 0, 0, width, height);
                     var img = canvas.toDataURL("image/png");
-                    //photo.setAttribute('src', img);
                     evt.preventDefault();
 
                 }, false);
