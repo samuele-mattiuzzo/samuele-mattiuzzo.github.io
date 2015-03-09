@@ -1,62 +1,107 @@
 <html>
 <head>
     <title>A camera experiment</title>
-    <meta author="samumatt@gmail.com">
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
-    <style>
-        .centered {
-            margin-left: auto;
-            margin-right: auto;
-            background-color: #7A9A95;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
-    <div class="centered">
+    <div class="wrapper">
         <!-- camera controls -->
-        <video id="video" width="300" height="300"></video>
-        <button id="button" type="button" >Snaps!</button>
-        
+        <video class="wrapped" id="video"></video>
+
         <!-- canvas and output -->
-        <canvas id="canvas" style="display:none;" width="300" height="300"></canvas>
-        <div class="output">
-            <img id="photo">
-        </div>
+        <canvas class="wrapped" id="canvas"></canvas>
+
+        <!-- controls -->
+
+
+
+        <!-- filters -->
+        <ul>
+            <li> <button class="btn" id="button" type="button" >Snap!</button> </li>
+            <li>
+                <label for="light">Brightness</label>
+                <input type="range" id="light"
+                    oninput="set('brightness', this.valueAsNumber);"
+                    value="0" step="0.1" min="0" max="10"/>
+            </li>
+            <li>
+                <label for="light">Blur</label>
+                <input type="range" id="blur"
+                    oninput="set('blur', this.value + 'px');"
+                    value="0" step="0.1" min="0" max="10"/>
+            </li>
+            <li>
+                <label for="light">Sepia</label>
+                <input type="range" id="sepia"
+                    oninput="set('sepia', this.valueAsNumber);"
+                    value="0" step="0.1" min="0" max="1"/>
+            </li>
+            <li>
+                <label for="light">Grayscale</label>
+                <input type="range" id="grayscale"
+                    oninput="set('grayscale', this.valueAsNumber);"
+                    value="0" step="0.1" min="0" max="1"/>
+            </li>
+        </ul>
     </div>
+
 </body>
 
 <script>
+    var FILTER_VALS = {},
+        WIDTH = 300,
+        HEIGHT = 300;
+
+    // Helpers
+    function set(filter, value) {
+        // sets a value from a slider
+        FILTER_VALS[filter] = typeof value == 'number' ? Math.round(value * 10) / 10 : value;
+        if (value == 0 || (typeof value == 'string' && value.indexOf('0') == 0)) {
+            delete FILTER_VALS[filter];
+        }
+        render();
+    }
+
+    function render() {
+        // re renders the canvas content applying the values stored
+        // in filter vals
+        var vals = [];
+        Object.keys(FILTER_VALS).sort().forEach(function(key, i) {
+            vals.push(key + '(' + FILTER_VALS[key] + ')');
+        });
+        var val = vals.join(' ');
+        canvas.style.webkitFilter = val;
+        canvas.textContent = '-webkit-filter: ' + (val ? val : 'none') + ';';
+    }
+
 
     // Vendor prefixes ahead!
-    navigator.getUserMedia = (navigator.getUserMedia || 
-                              navigator.webkitGetUserMedia || 
-                              navigator.mozGetUserMedia || 
+    navigator.getUserMedia = (navigator.getUserMedia ||
+                              navigator.webkitGetUserMedia ||
+                              navigator.mozGetUserMedia ||
                               navigator.msGetUserMedia);
-  
+
     if (!navigator.getUserMedia){
         alert('Sorry, the browser you are using doesn\'t support getUserMedia');
     } else {
-        alert('Navigator.getUserMedia present, please continue');
-        navigator.getUserMedia({"video": true}, 
-            function(stream) {   
+        navigator.getUserMedia({"video": true},
+            function(stream) {
                 // we have a stream
-                // set some things up      
-                var width = 300,
-                    height = 300,
-                    video = document.getElementById('video'),
+                // set some things up
+                var video = document.getElementById('video'),
                     btn = document.getElementById('button'),
                     canvas = document.getElementById('canvas'),
-                    photo = document.getElementById('photo'),
                     url = window.URL || window.webkitURL;
 
                 // canvas configuration
-                canvas.setAttribute('width', width);
-                canvas.setAttribute('height', height);
+                canvas.setAttribute('width', WIDTH);
+                canvas.setAttribute('height', HEIGHT);
 
                 // video configuration
-                video.setAttribute('width', width);
-                video.setAttribute('height', height);
+                video.setAttribute('width', WIDTH);
+                video.setAttribute('height', HEIGHT);
 
                 // one must love vendors.
                 if (navigator.mozGetUserMedia){
@@ -69,9 +114,8 @@
                 // onclick listener for button
                 // snaps the picture
                 btn.addEventListener('click', function(evt) {
-                    canvas.getContext("2d").drawImage(video, 0, 0, width, height);
+                    canvas.getContext("2d").drawImage(video, 0, 0, WIDTH, HEIGHT);
                     var img = canvas.toDataURL("image/png");
-                    photo.setAttribute('src', img);
                     evt.preventDefault();
 
                 }, false);
