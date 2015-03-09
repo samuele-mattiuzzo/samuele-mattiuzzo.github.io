@@ -14,29 +14,37 @@
         <canvas class="wrapped" id="canvas"></canvas>
 
         <!-- controls -->
-        <button class="btn" id="button" type="button" >Snap!</button>
+
 
 
         <!-- filters -->
-        <label for="light">Brightness</label>
-        <input type="range" id="light"
-            oninput="set('brightness', this.valueAsNumber);"
-            value="0" step="0.1" min="0" max="10"/>
-
-        <label for="light">Blur</label>
-        <input type="range" id="blur"
-            oninput="set('blur', this.valueAsNumber);"
-            value="0" step="0.1" min="0" max="10"/>
-
-        <label for="light">Sepia</label>
-        <input type="range" id="sepia"
-            oninput="set('sepia', this.valueAsNumber);"
-            value="0" step="0.1" min="0" max="10"/>
-
-        <label for="light">Grayscale</label>
-        <input type="range" id="grayscale"
-            oninput="set('grayscale', this.valueAsNumber);"
-            value="0" step="0.1" min="0" max="10"/>
+        <ul>
+            <li> <button class="btn" id="button" type="button" >Snap!</button> </li>
+            <li>
+                <label for="light">Brightness</label>
+                <input type="range" id="light"
+                    oninput="set('brightness', this.valueAsNumber);"
+                    value="0" step="0.1" min="0" max="10"/>
+            </li>
+            <li>
+                <label for="light">Blur</label>
+                <input type="range" id="blur"
+                    oninput="set('blur', this.value + 'px');"
+                    value="0" step="0.1" min="0" max="10"/>
+            </li>
+            <li>
+                <label for="light">Sepia</label>
+                <input type="range" id="sepia"
+                    oninput="set('sepia', this.valueAsNumber);"
+                    value="0" step="0.1" min="0" max="1"/>
+            </li>
+            <li>
+                <label for="light">Grayscale</label>
+                <input type="range" id="grayscale"
+                    oninput="set('grayscale', this.valueAsNumber);"
+                    value="0" step="0.1" min="0" max="1"/>
+            </li>
+        </ul>
     </div>
 
 </body>
@@ -64,6 +72,7 @@
             vals.push(key + '(' + FILTER_VALS[key] + ')');
         });
         var val = vals.join(' ');
+
         canvas.style.webkitFilter = val;
         canvas.textContent = '-webkit-filter: ' + (val ? val : 'none') + ';';
     }

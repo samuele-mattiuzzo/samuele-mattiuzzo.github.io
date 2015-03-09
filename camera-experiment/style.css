@@ -2,8 +2,11 @@ body{
     color: #222;
     background-color: rgba(0, 0, 0, .1);}
 
+ul{
+  list-style-type: none;}
+
 .wrapper{
-    width: 650px;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;}
 
