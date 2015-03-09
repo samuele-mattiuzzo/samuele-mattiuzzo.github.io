@@ -66,9 +66,6 @@
         var val = vals.join(' ');
         canvas.style.webkitFilter = val;
         canvas.textContent = '-webkit-filter: ' + (val ? val : 'none') + ';';
-
-        video.style.webkitFilter = val;
-        video.textContent = '-webkit-filter: ' + (val ? val : 'none') + ';';
     }
 
 
@@ -105,7 +102,7 @@
                 } else {
                     video.setAttribute('src', url ? url.createObjectURL(stream) : stream);
                 }
-                video.play();  // must play the video
+                //video.play();  // must play the video
 
                 // onclick listener for button
                 // snaps the picture
