@@ -66,6 +66,9 @@
         var val = vals.join(' ');
         canvas.style.webkitFilter = val;
         canvas.textContent = '-webkit-filter: ' + (val ? val : 'none') + ';';
+
+        video.style.webkitFilter = val;
+        video.textContent = '-webkit-filter: ' + (val ? val : 'none') + ';';
     }
 
 
