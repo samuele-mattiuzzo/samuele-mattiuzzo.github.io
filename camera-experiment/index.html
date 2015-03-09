@@ -15,12 +15,35 @@
 
         <!-- controls -->
         <button class="btn" id="button" type="button" >Snap!</button>
-        <label for="light">Light level</label><input type="range" id="light"/>
+        <label for="light">Light level</label>
+        <input type="range" id="light"
+            oninput="set('brightness', this.valueAsNumber);"
+            value="0" step="0.1" min="0" max="10"/>
     </div>
 
 </body>
 
 <script>
+    // Helpers
+    FILTER_VALS = {}
+    function set(filter, value) {
+          FILTER_VALS[filter] = typeof value == 'number' ? Math.round(value * 10) / 10 : value;
+          if (value == 0 || (typeof value == 'string' && value.indexOf('0') == 0)) {
+            delete FILTER_VALS[filter];
+          }
+          render();
+    }
+
+    function render() {
+      var vals = [];
+      Object.keys(FILTER_VALS).sort().forEach(function(key, i) {
+        vals.push(key + '(' + FILTER_VALS[key] + ')');
+      });
+      var val = vals.join(' ');
+      canvas.style.webkitFilter = val;
+      document.querySelector('canvas').textContent = '-webkit-filter: ' + (val ? val : 'none') + ';';
+    }
+
 
     // Vendor prefixes ahead!
     navigator.getUserMedia = (navigator.getUserMedia ||
