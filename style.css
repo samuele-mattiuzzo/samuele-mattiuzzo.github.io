@@ -1,0 +1,57 @@
+html {
+    font-size: 10px;
+    font-family: "HelveticaMonospacedW01",Monaco,Consolas,"Lucida Console",monospace;
+    background-color: #fff;
+    overflow: hidden;}
+
+body {
+    line-height: 1
+    font-size: 100%;
+    height: 100%;
+    color: #1b1b1b;
+    -webkit-transition: color 500ms,background-color 500ms;
+    transition: color 500ms,background-color 500ms;
+    overflow: hidden;}
+
+main {
+    padding: 10em 1em 1em 10rem;
+    font: 1.4em/1.4em "HelveticaMonospacedW01",Monaco,Consolas,"Lucida Console",monospace;}
+
+h1 {
+    font: 1.8em/1.4em "HelveticaMonospacedW01",Monaco,Consolas,"Lucida Console",monospace;
+    margin-bottom: 2em;}
+
+ul {
+    list-style-type: none;}
+
+li {
+    padding: 0 0 0.5em 0;
+    color: #808080;
+    padding: 0.5em 0 1em;}
+
+a {
+    text-decoration: none;
+    cursor: pointer;}
+
+a, a:visited, a:active {
+    color: #808080;}
+
+a: hover {
+    color: #000;}
+
+footer {
+    font-size: 1em;
+    line-height: 1.2em;
+    position: absolute;
+    bottom: 1em;
+    left: 10em;
+    opacity: 0.2;
+    -webkit-transition: opacity 150ms;
+    transition: opacity 150ms;}
+
+footer:hover {
+    opacity: 1;}
+
+@media (max-width:  500px) {
+    main {
+    padding: 5em;}
