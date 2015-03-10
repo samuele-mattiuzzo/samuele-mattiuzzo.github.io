@@ -21,6 +21,11 @@ h1 {
     font: 1.8em/1.4em "HelveticaMonospacedW01",Monaco,Consolas,"Lucida Console",monospace;
     margin-bottom: 2em;}
 
+h2 {
+    font: 1.6em/1.4em "HelveticaMonospacedW01",Monaco,Consolas,"Lucida Console",monospace;
+    margin-bottom: 1em;
+    margin-top: 2em;}
+
 ul {
     list-style-type: none;}
 
@@ -36,7 +41,7 @@ a {
 a, a:visited, a:active {
     color: #808080;}
 
-a: hover {
+a:hover {
     color: #000;}
 
 footer {
