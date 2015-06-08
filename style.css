@@ -1,20 +1,17 @@
 html {
     font-size: 10px;
     font-family: "HelveticaMonospacedW01",Monaco,Consolas,"Lucida Console",monospace;
-    background-color: #fff;
-    overflow: hidden;}
+    background-color: #fff;}
 
 body {
-    line-height: 1
+    line-height: 1;
     font-size: 100%;
-    height: 100%;
     color: #1b1b1b;
     -webkit-transition: color 500ms,background-color 500ms;
-    transition: color 500ms,background-color 500ms;
-    overflow: hidden;}
+    transition: color 500ms,background-color 500ms;}
 
 main {
-    padding: 10em 1em 1em 10rem;
+    padding: 5em 1em 1em 10rem;
     font: 1.4em/1.4em "HelveticaMonospacedW01",Monaco,Consolas,"Lucida Console",monospace;}
 
 h1 {
@@ -30,9 +27,8 @@ ul {
     list-style-type: none;}
 
 li {
-    padding: 0 0 0.5em 0;
     color: #808080;
-    padding: 0.5em 0 1em;}
+    padding: 0.5em 0 0.5em;}
 
 a {
     text-decoration: none;
@@ -47,8 +43,7 @@ a:hover {
 footer {
     font-size: 1em;
     line-height: 1.2em;
-    position: absolute;
-    bottom: 1em;
+    bottom: 0;
     left: 10em;
     opacity: 0.2;
     -webkit-transition: opacity 150ms;
